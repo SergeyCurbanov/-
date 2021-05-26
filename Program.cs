@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp4
+namespace Заполнить двумерный целочисленный массив, размером N, числами. Зеркально отобразить его содержимое по горизонтали. Вывести массив на экран до и после модификации.
 {
     class Program
     {
