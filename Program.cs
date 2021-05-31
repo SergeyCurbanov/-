@@ -4,45 +4,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Заполнить двумерный целочисленный массив, размером N, числами. Зеркально отобразить его содержимое по горизонтали. Вывести массив на экран до и после модификации.
+namespace ConsoleApp5
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int N = 11;
-            int[,] massive = new int[N, N];
-            for (int i = 0; i < N; i++)       
-                for (int j = 0; j < N; j++)
-                {
-                    if (i <= (N / 2))
-                        if (j <= (N / 2))
-                        {
-                            if (i == j)
-                            {
-                                massive[i, j] = 1;
-                                continue;
-                            }
-                            if (i <= j)
-                                if (j > 0)
-                                    massive[i, j] = massive[i, j - 1] + 1;
-                            if (i > j)
-                                if (i > 0)
-                                    massive[i, j] = massive[i - 1, j] + 1;
-                        }
-                    if (j > (N / 2))
-                        massive[i, j] = massive[i, (N - 1) - j];
-                    if (i > (N / 2))
-                        massive[i, j] = massive[(N - 1) - i, j];
-                }
-            for (int i = 0; i < N; i++)
+            int n, m;
+            Console.WriteLine("n=");
+            n = int.Parse(Console.ReadLine());
+            Console.WriteLine("m=");
+            m = int.Parse(Console.ReadLine());
+
+            int[,] A = new int[n, m];
+            Random r = new Random();
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < m; j++)
+                    A[i, j] = r.Next(0, 100);
+
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < N; j++)
-                    Console.Write(" " + massive[i, j]);
-                Console.WriteLine("");
+                for (int j = 0; j < m; j++)
+                    Console.Write(A[i, j] + " ");
+                Console.WriteLine();
             }
-            Console.ReadKey();
+
+            for (int i = 0; i < n / 2; i++)
+                for (int j = 0; j < m; j++)
+                {
+                    int t = A[i, j];
+                    A[i, j] = A[n - 1 - i, m - 1 - j];
+                    A[n - 1 - i, m - 1 - j] = t; ;
+                }
+
+            if (n % 2 != 0)
+            {
+                int i = n / 2;
+                for (int j = 0; j < m / 2; j++)
+                {
+                    int t = A[i, j];
+                    A[i, j] = A[i, m - 1 - j];
+                    A[i, m - 1 - j] = t; ;
+                }
+            }
+
+            Console.WriteLine("Перевернутый массив:");
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                    Console.Write(A[i, j] + " ");
+                Console.WriteLine();
+            }
+            Console.ReadLine();
+
         }
     }
 }
-        
+       
